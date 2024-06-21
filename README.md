@@ -2,6 +2,8 @@
 
 This project is a podcast application built with Vite and React. It uses Firebase for authentication and Firestore for database management. React Router is used for client-side routing, and Redux is used for state management.
 
+`Netlify link`: https://app.netlify.com/sites/podcastbyretha
+
 ## Project Structure
 
 - `index.html`: The main HTML file that serves the React application.
