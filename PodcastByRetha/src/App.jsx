@@ -14,6 +14,7 @@ import { useDispatch } from "react-redux";
 import PrivateRoutes from "./components/CommonComponents/PrivateRoutes";
 import PodcastsPage from "./pages/Podcasts";
 import PodcastDetailsPage from "./pages/PodcastDetails";
+import FavouritesPage from "./pages/FavouritesPage";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -62,6 +63,7 @@ export default function App() {
             <Route path="/create-a-podcast" element={<CreateAPodcast />} />
             <Route path="/podcasts" element={<PodcastsPage />} />
             <Route path="/podcast/:id" element={<PodcastDetailsPage />} />
+            <Route path="/favourites" element={<FavouritesPage />} />
           </Route>
         </Routes>
       </Router>
