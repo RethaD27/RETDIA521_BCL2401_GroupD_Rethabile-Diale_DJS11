@@ -1,4 +1,4 @@
-# Podcast App
+# 🎙️🎤Podcast App💻🤖
 
 This project is a podcast application built with Vite and React. It uses Firebase for authentication and Firestore for database management. React Router is used for client-side routing, and Redux is used for state management.
 
@@ -24,8 +24,8 @@ This project is a podcast application built with Vite and React. It uses Firebas
 * Podcasts Listing: View a list of available podcasts.
 * Podcast Details: View details of a specific podcast.
 * Favourites: Mark podcasts as favourites.
-* **Landing Page: Landing page for the application.
-* **Show Details: View details of a specific show.
+* Landing Page: Landing page for the application.
+* Show Details: View details of a specific show.
 
   
 # Reflections 
