@@ -33,6 +33,7 @@ export default function PodcastsPage() {
           displayImage: item.image,
           genre: genreMap[item.genres], // Map genre ID to title
           genreId: item.genre, // keep genre ID for filtering
+          updated: item.updated,
         }));
         console.log(data);
         setPodcasts(podcastsData);
@@ -88,6 +89,9 @@ export default function PodcastsPage() {
                   id={item.id}
                   title={item.title}
                   displayImage={item.displayImage}
+                  updated={item.updated}
+                  genre={item.genre}
+                  seasons={item.seasons}
                 />
               );
             })}

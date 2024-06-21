@@ -28,3 +28,6 @@
   text-decoration: none !important;
   margin: 0.5rem 0rem;
 }
+.podcast-para {
+  color: var(--purple-grey) !important;
+}

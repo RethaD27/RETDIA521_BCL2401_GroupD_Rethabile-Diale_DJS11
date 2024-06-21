@@ -1,0 +1,26 @@
+/* CarouselComponent.css */
+
+.carousel-container {
+  padding: 2rem 0;
+}
+
+.carousel-item {
+  padding: 0 1rem;
+  text-align: center;
+}
+
+.carousel-image {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  transition: transform 0.3s;
+}
+
+.carousel-image:hover {
+  transform: scale(1.05);
+}
+
+.carousel-title {
+  font-size: 1.2rem;
+  color: #333;
+}

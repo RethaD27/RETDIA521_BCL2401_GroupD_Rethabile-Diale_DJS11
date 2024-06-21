@@ -15,6 +15,8 @@ import PrivateRoutes from "./components/CommonComponents/PrivateRoutes";
 import PodcastsPage from "./pages/Podcasts";
 import PodcastDetailsPage from "./pages/PodcastDetails";
 import FavouritesPage from "./pages/FavouritesPage";
+import LandingPage from "./pages/LandingPage";
+import ShowDetails from "./pages/ShowDetails";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -64,6 +66,8 @@ export default function App() {
             <Route path="/podcasts" element={<PodcastsPage />} />
             <Route path="/podcast/:id" element={<PodcastDetailsPage />} />
             <Route path="/favourites" element={<FavouritesPage />} />
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/show/:id" element={<ShowDetails />} />
           </Route>
         </Routes>
       </Router>
