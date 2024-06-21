@@ -14,13 +14,17 @@ This project is a podcast application built with Vite and React. It uses Firebas
 ## Prerequisites
 
 - Node.js (v14 or higher)
-- npm (v6 or higher) or yarn
+- npm (v6 or higher)
 - Firebase account
 
-## Getting Started
+## Features
+* Authentication: User authentication using Firebase.
+* User Profile: Manage user profile information.
+* Create a Podcast: Create and manage your podcasts.
+* Podcasts Listing: View a list of available podcasts.
+* Podcast Details: View details of a specific podcast.
+* Favourites: Mark podcasts as favourites.
+* Landing Page: Landing page for the application.
+* Show Details: View details of a specific show.
 
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/RETDIA521_BCL2401_GroupD_Rethabile-Diale_DJS11/podcast-app.git
-cd podcast-app
+  
