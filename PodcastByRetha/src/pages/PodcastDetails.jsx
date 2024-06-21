@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import Button from "../components/CommonComponents/Button";
 import { auth } from "../firebase";
 import EpisodeDetails from "../components/Podcasts/EpisodeDetails";
-// import AudioPlayer from "../components/Podcasts/AudioPlayer";
+import AudioPlayer from "../components/Podcasts/AudioPlayer";
 
 export default function PodcastDetailsPage() {
   const { id } = useParams();
@@ -58,15 +58,6 @@ export default function PodcastDetailsPage() {
               }}
             >
               <h1 className="podcast-title-heading">{podcast.title}</h1>
-              {podcast.createdBy == auth.currentUser?.uid && (
-                <Button
-                  width={"200px"}
-                  text={"Create Episode"}
-                  onClick={() => {
-                    navigate(`/podcast/${id}/create-episode`);
-                  }}
-                />
-              )}
             </div>
 
             <div className="banner-wrapper">
@@ -85,7 +76,7 @@ export default function PodcastDetailsPage() {
                         index={episodeIndex + 1}
                         title={episode.title}
                         description={episode.description}
-                        audioFile={episode.audioFile}
+                        audioFile={episode.file} // Assuming 'file' is the key for the audio URL
                         onClick={(file) => setPlayingFile(file)}
                       />
                     ))
@@ -101,7 +92,7 @@ export default function PodcastDetailsPage() {
         )}
       </div>
       {playingFile && (
-        <AudioPlayer audioSrc={playingFile} image={podcast.displayImage} />
+        <AudioPlayer audioSrc={playingFile} image={podcast.image} />
       )}
     </div>
   );
