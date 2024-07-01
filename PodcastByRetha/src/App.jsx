@@ -17,6 +17,7 @@ import PodcastDetailsPage from "./pages/PodcastDetails";
 import FavouritesPage from "./pages/FavouritesPage";
 import LandingPage from "./pages/LandingPage";
 import ShowDetails from "./pages/ShowDetails";
+import FavoritesList from "./pages/FavoritesList";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -66,6 +67,7 @@ export default function App() {
             <Route path="/podcasts" element={<PodcastsPage />} />
             <Route path="/podcast/:id" element={<PodcastDetailsPage />} />
             <Route path="/favourites" element={<FavouritesPage />} />
+            <Route path="/favorites" element={<FavoritesList />} />
             <Route path="/" element={<LandingPage />} />
             <Route path="/show/:id" element={<ShowDetails />} />
           </Route>

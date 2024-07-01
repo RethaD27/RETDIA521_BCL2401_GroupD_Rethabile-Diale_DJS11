@@ -51,6 +51,13 @@ const CarouselComponent = ({ items }) => {
               />
             </Link>
             <h3 className="carousel-title">{item.title}</h3>
+            <div className="carousel-seasons">
+              {item.seasons.map((season, index) => (
+                <p key={index}>
+                  Season {index + 1}: {season.episodeCount} episodes
+                </p>
+              ))}
+            </div>
           </div>
         ))}
       </Slider>
@@ -64,6 +71,11 @@ CarouselComponent.propTypes = {
       id: PropTypes.number.isRequired,
       image: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
+      seasons: PropTypes.arrayOf(
+        PropTypes.shape({
+          episodeCount: PropTypes.number.isRequired,
+        })
+      ).isRequired,
     })
   ).isRequired,
 };

@@ -118,3 +118,36 @@ a {
 .audio-btn {
   cursor: pointer;
 }
+
+.podcast-card {
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin: 10px;
+}
+
+.podcast-image {
+  width: 100%;
+  height: auto;
+}
+
+.podcast-title {
+  font-size: 1.5em;
+}
+
+.podcast-para {
+  margin: 5px 0;
+}
+
+.episode {
+  margin-left: 20px;
+}
+
+.favorite-episode {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.favorites-list {
+  padding: 20px;
+}
