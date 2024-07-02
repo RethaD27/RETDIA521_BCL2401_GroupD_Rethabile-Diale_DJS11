@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import Header from "../components/CommonComponents/Header/index";
-import PodcastCard from "../components/Podcasts/PodcastCard";
+import React, { useEffect, useState } from "react";
+import Header from "../components/CommonComponents/Header";
+import PodcastCard from "../components/Podcasts/PodcastCard/";
 import InputComponent from "../components/CommonComponents/Input";
 
 // Genre ID to Title mapping
@@ -18,25 +18,32 @@ const genreMap = {
 
 export default function PodcastsPage() {
   const [podcasts, setPodcasts] = useState([]);
+  const [originalPodcasts, setOriginalPodcasts] = useState([]); // Store the original podcasts list
   const [search, setSearch] = useState("");
   const [selectedGenre, setSelectedGenre] = useState("");
+  const [sortedBy, setSortedBy] = useState(null); // State to track sorting type
 
   useEffect(() => {
     const fetchPodcasts = async () => {
       try {
         const response = await fetch("https://podcast-api.netlify.app");
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const data = await response.json();
+        console.log("Fetched Data:", data);
         const podcastsData = data.map((item) => ({
-          key: item.id,
           id: item.id,
           title: item.title,
           displayImage: item.image,
           genre: genreMap[item.genres], // Map genre ID to title
-          genreId: item.genre, // keep genre ID for filtering
+          genreId: item.genres, // keep genre ID for filtering
           updated: item.updated,
+          seasons: item.seasons, // Include seasons data
         }));
-        console.log(data);
+        console.log("Mapped Podcasts Data:", podcastsData);
         setPodcasts(podcastsData);
+        setOriginalPodcasts(podcastsData); // Save the original list of podcasts
       } catch (error) {
         console.error("Error fetching podcasts:", error);
       }
@@ -45,13 +52,42 @@ export default function PodcastsPage() {
     fetchPodcasts();
   }, []);
 
-  console.log(podcasts);
-
-  let filteredPodcasts = podcasts.filter(
+  const filteredPodcasts = podcasts.filter(
     (item) =>
       item.title.trim().toLowerCase().includes(search.trim().toLowerCase()) &&
       (selectedGenre ? item.genre === selectedGenre : true)
   );
+
+  const sortByTitleAZ = () => {
+    const sortedPodcasts = [...filteredPodcasts].sort((a, b) =>
+      a.title.localeCompare(b.title)
+    );
+    setPodcasts(sortedPodcasts);
+    setSortedBy("titleAZ");
+  };
+
+  const sortByTitleZA = () => {
+    const sortedPodcasts = [...filteredPodcasts].sort((a, b) =>
+      b.title.localeCompare(a.title)
+    );
+    setPodcasts(sortedPodcasts);
+    setSortedBy("titleZA");
+  };
+
+  const sortByOldestUpdated = () => {
+    const sortedPodcasts = [...filteredPodcasts].sort(
+      (a, b) => new Date(a.updated) - new Date(b.updated)
+    );
+    setPodcasts(sortedPodcasts);
+    setSortedBy("oldestUpdated");
+  };
+
+  const resetSort = () => {
+    setPodcasts(originalPodcasts); // Restore the original list of podcasts
+    setSearch("");
+    setSelectedGenre("");
+    setSortedBy(null);
+  };
 
   return (
     <div>
@@ -80,21 +116,18 @@ export default function PodcastsPage() {
           </select>
         </div>
 
+        <div className="sort-buttons" style={{ marginTop: "1rem" }}>
+          <button onClick={sortByTitleAZ}>Sort by Title (A-Z)</button>
+          <button onClick={sortByTitleZA}>Sort by Title (Z-A)</button>
+          <button onClick={sortByOldestUpdated}>Sort by Oldest Updated</button>
+          <button onClick={resetSort}>Reset</button>
+        </div>
+
         {filteredPodcasts.length > 0 ? (
           <div className="podcasts-layout" style={{ marginTop: "1.5rem" }}>
-            {filteredPodcasts.map((item) => {
-              return (
-                <PodcastCard
-                  key={item.id}
-                  id={item.id}
-                  title={item.title}
-                  displayImage={item.displayImage}
-                  updated={item.updated}
-                  genre={item.genre}
-                  seasons={item.seasons}
-                />
-              );
-            })}
+            {filteredPodcasts.map((item) => (
+              <PodcastCard key={item.id} item={item} />
+            ))}
           </div>
         ) : (
           <p>{search ? "Podcast Not Found" : "No Podcasts On The Platform"}</p>

@@ -12,7 +12,6 @@ export default function PodcastDetailsPage() {
   const [seasons, setSeasons] = useState([]);
   const [playingFile, setPlayingFile] = useState("");
 
-  // getData is defined only once per render
   useEffect(() => {
     if (id) {
       const getData = async () => {
@@ -20,6 +19,9 @@ export default function PodcastDetailsPage() {
           const response = await fetch(
             `https://podcast-api.netlify.app/id/${id}`
           );
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
           const data = await response.json();
 
           if (data) {
@@ -39,6 +41,8 @@ export default function PodcastDetailsPage() {
       getData();
     }
   }, [id, navigate]);
+
+  console.log(`seasons: ${seasons}`);
 
   return (
     <div>
@@ -62,7 +66,7 @@ export default function PodcastDetailsPage() {
               <img src={podcast.image} alt={podcast.title} />
             </div>
             <p className="podcast-description">{podcast.description}</p>
-            <h1 className="podcast-title-heading ">Seasons</h1>
+            <h1 className="podcast-title-heading">Seasons</h1>
             {seasons.length > 0 ? (
               seasons.map((season, seasonIndex) => (
                 <div key={seasonIndex}>
@@ -75,7 +79,7 @@ export default function PodcastDetailsPage() {
                         title={episode.title}
                         description={episode.description}
                         audioFile={episode.file} // Assuming 'file' is the key for the audio URL
-                        onClick={(file) => setPlayingFile(file)}
+                        onClick={() => setPlayingFile(episode.file)}
                       />
                     ))
                   ) : (
@@ -84,13 +88,13 @@ export default function PodcastDetailsPage() {
                 </div>
               ))
             ) : (
-              <p>No Seasons</p>
+              <p>No Seasons Available</p>
             )}
           </>
         )}
       </div>
       {playingFile && (
-        <AudioPlayer audioSrc={playingFile} image={podcast.image} />
+        <AudioPlayer audioSrc={playingFile} image={seasons.image} />
       )}
     </div>
   );

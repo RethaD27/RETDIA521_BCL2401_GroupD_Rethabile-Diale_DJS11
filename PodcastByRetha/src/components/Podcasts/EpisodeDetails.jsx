@@ -10,6 +10,8 @@ export default function EpisodeDetails({
   audioFile,
   onClick,
   episodeId,
+  showTitle, // added prop for show title
+  seasonIndex, // added prop for season index
 }) {
   const dispatch = useDispatch();
   const favorites = useSelector((state) => state.favorites.episodes);
@@ -20,7 +22,16 @@ export default function EpisodeDetails({
     if (isFavorite) {
       dispatch(removeFavorite(episodeId));
     } else {
-      dispatch(addFavorite({ id: episodeId, title, description, audioFile }));
+      dispatch(
+        addFavorite({
+          id: episodeId,
+          title,
+          description,
+          audioFile,
+          show: showTitle,
+          season: seasonIndex + 1,
+        })
+      );
     }
   };
 
@@ -45,12 +56,14 @@ export default function EpisodeDetails({
     </div>
   );
 }
+
 EpisodeDetails.propTypes = {
   index: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  file: PropTypes.string.isRequired,
+  audioFile: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
+  episodeId: PropTypes.number.isRequired,
+  showTitle: PropTypes.string.isRequired, // added prop type
+  seasonIndex: PropTypes.number.isRequired, // added prop type
 };
-
-// still to add audio

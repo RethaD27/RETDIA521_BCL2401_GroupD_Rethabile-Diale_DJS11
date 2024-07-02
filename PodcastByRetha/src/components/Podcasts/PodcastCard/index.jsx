@@ -3,11 +3,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import "./styles.css";
 
-export default function PodcastsCard({ item }) {
-  if (!item) {
-    return <div>Loading...</div>; // or some other fallback content
-  }
-
+export default function PodcastsCard({ item = {} }) {
   const [favoriteEpisodes, setFavoriteEpisodes] = useState([]);
 
   useEffect(() => {
@@ -32,6 +28,10 @@ export default function PodcastsCard({ item }) {
     localStorage.setItem("favoriteEpisodes", JSON.stringify(updatedFavorites));
   };
 
+  if (!item || !item.id) {
+    return <div>Loading...</div>; // or some other fallback content
+  }
+
   return (
     <Link to={`/podcast/${item.id}`}>
       <div className="podcast-card">
@@ -45,25 +45,6 @@ export default function PodcastsCard({ item }) {
           Last Update: {new Date(item.updated).toLocaleDateString()}
         </h5>
         <h6 className="podcast-para">Genre: {item.genre}</h6>
-        {item.seasons.map((season, seasonIndex) => (
-          <div key={seasonIndex}>
-            <h6 className="podcast-para">
-              Season {seasonIndex + 1}: {season.episodeCount} episodes
-            </h6>
-            {season.episodes.map((episode, episodeIndex) => (
-              <div key={episodeIndex} className="episode">
-                <p>{episode.title}</p>
-                <button
-                  onClick={() =>
-                    handleFavoriteClick(episode, seasonIndex, item.title)
-                  }
-                >
-                  {isFavorite(episode.id) ? "Unfavorite" : "Favorite"}
-                </button>
-              </div>
-            ))}
-          </div>
-        ))}
       </div>
     </Link>
   );
@@ -88,4 +69,8 @@ PodcastsCard.propTypes = {
       })
     ).isRequired,
   }).isRequired,
+};
+
+PodcastsCard.defaultProps = {
+  item: {},
 };
