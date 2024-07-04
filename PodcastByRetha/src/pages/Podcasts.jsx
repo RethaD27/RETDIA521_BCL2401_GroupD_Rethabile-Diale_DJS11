@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../components/CommonComponents/Header";
 import PodcastCard from "../components/Podcasts/PodcastCard/";
 import InputComponent from "../components/CommonComponents/Input";
